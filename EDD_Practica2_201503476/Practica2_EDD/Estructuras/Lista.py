@@ -75,3 +75,17 @@ class Lista:
                 retorno = retorno + " | " + str(aux.palabra) + " |---->"
                 aux = aux.siguiente
             return retorno
+
+    def textoParaDot(self):
+        if self.estaVacia() is False:
+            retorno = "digraph g {"
+            aux = self.cabeza
+            while aux is not None:
+                if aux.siguiente is not None:
+                    retorno = retorno + "\n" + str(aux.palabra) + \
+                        "->" + str(aux.siguiente.palabra) + ";"
+                else:
+                    retorno = retorno + "\n" + str(aux.palabra) + ";"
+                aux = aux.siguiente
+            retorno = retorno + "}"
+            return retorno

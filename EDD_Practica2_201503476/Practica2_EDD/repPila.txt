@@ -1,0 +1,1 @@
+<bound method Cola.textoParaDot of <Estructuras.Cola.Cola object at 0x00000212DD47A978>><bound method Cola.textoParaDot of <Estructuras.Cola.Cola object at 0x000001C054F9A8D0>>

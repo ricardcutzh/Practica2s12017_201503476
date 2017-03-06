@@ -56,3 +56,17 @@ class Cola:
                 retorno = retorno + " | " + str(aux.numero) + " |---->"
                 aux = aux.siguiente
             return str(retorno)
+
+    def textoParaDot(self):
+        if self.estaVacia() is False:
+            retorno = "digraph g {"
+            aux = self.cabeza
+            while aux is not self.ultimo.siguiente:
+                if aux.siguiente is not None:
+                    retorno = retorno + "\n" + str(aux.numero) + \
+                        "->" + str(aux.siguiente.numero) + ";"
+                else:
+                    retorno = retorno + "\n" + str(aux.numero) + ";"
+                aux = aux.siguiente
+            retorno = retorno + "}"
+            return retorno

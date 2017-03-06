@@ -2,12 +2,15 @@ from flask import Flask, request
 from Estructuras import Cola
 from Estructuras import Pila
 from Estructuras import Lista
+from Estructuras import Matriz
+import os
 
 app = Flask("Practica2")
 
 ColaPython = Cola.Cola()
 pilaDePrueba = Pila.Pila()
 ListaPython = Lista.Lista()
+MatrizP = Matriz.Matriz()
 
 
 @app.route('/Conectar')
@@ -35,6 +38,15 @@ def sacarDeCola():
     return "Elemento Sacado de La Cola: " + str(ColaPython.desencolar())
 
 
+@app.route('/ReporteCola')
+def repCola():
+    archi = open('repPila.txt', 'wt')
+    archi.write(str(ColaPython.textoParaDot))
+    archi.close()
+
+    return str(ColaPython.textoParaDot())
+
+
 @app.route('/Apilar', methods=['POST'])
 def meterAPila():
     numero = str(request.form['numero'])
@@ -53,6 +65,11 @@ def sacarDePila():
 def verEstadoPila():
     retornoP = pilaDePrueba.showPila()
     return str(retornoP)
+
+
+@app.route('/ReportePila')
+def repPila():
+    return str(pilaDePrueba.textoParaDot())
 
 
 @app.route('/MeterALista', methods=['POST'])
@@ -82,6 +99,38 @@ def verLista():
     retorno = str(ListaPython.showList())
     return str(retorno)
 
+
+@app.route('/ReporteLista')
+def ReporteLista():
+    return str(ListaPython.textoParaDot())
+
+
+@app.route('/ingresarMatriz', methods=['POST'])
+def ingMat():
+    letra = str(request.form['letra'])
+    dominio = str(request.form['dominio'])
+    dato = str(request.form['dato'])
+    MatrizP.ingresarAMatriz(dominio, letra, dato)
+    return "Se ingreso a Matriz Correctamente"
+
+
+@app.route('/ListarPorLetra', methods=['POST'])
+def listLetter():
+    letra = str(request.form['letra'])
+    salida = str(MatrizP.nombresConletra(letra))
+    return salida
+
+
+@app.route('/ListaPorDominio', methods=['POST'])
+def domainList():
+    dominio = str(request.form['dominio'])
+    salida = str(MatrizP.nombresConDominio(dominio))
+    return salida
+
+
+@app.route('/ReporteMatriz')
+def ReporteMatriz():
+    return "aun trabajando en eso..."
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')

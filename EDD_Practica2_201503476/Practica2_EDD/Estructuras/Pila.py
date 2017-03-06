@@ -54,3 +54,18 @@ class Pila:
                 print(str(aux.numero))
                 aux = aux.siguiente
             return str(retorno)
+
+    def textoParaDot(self):
+        if self.estaVacia() is False:
+            retorno = "digraph g {"
+            aux = self.cabeza
+            while aux is not self.ultimo:
+                if aux.siguiente is not None:
+                    retorno = "\n" + retorno + str(aux.numero) + \
+                        "->" + str(aux.siguiente.numero) + ";"
+                else:
+                    retorno = "\n" + retorno + str(aux.numero) + ";"
+                print(str(aux.numero))
+                aux = aux.siguiente
+            retorno = retorno + "}"
+            return str(retorno)
